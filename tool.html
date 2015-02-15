@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Tool</title>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.1/simplex/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body {
+			padding-top: 50px;
+		}
+		.anchor {
+			position: relative;
+			top: -50px;
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Tool</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="#qrcode">QR Code</a></li>
+					<li><a href="#hash">Hash</a></li>
+					<li><a href="#randomstr">Random String</a></li>
+					<li><a href="#base64">Base64</a></li>
+					<li><a href="#handlebars">Handlebars</a></li>
+					<li><a href="#regexpcap">RegExp Capture</a></li>
+					<li><a href="#markdown">Markdown</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="main" class="container">
+		<a name="qrcode" class="anchor"></a>
+		<div>
+			<h2>QR Code</h2>
+			<form id="form-qr">
+				<div class="form-group">
+					<label for="input-qrdata">Data</label>
+					<input type="text" class="form-control" id="input-qrdata" placeholder="QR data" data-bind="value: qrData">
+				</div>
+				<div class="form-group">
+					<label for="select-correctlevel">Correct level</label>
+					<select class="form-control" data-bind="value: correctLevel">
+						<option value="1">L</option>
+						<option value="0">M</option>
+						<option value="3">Q</option>
+						<option value="2">H</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" data-bind="click: generateQr">Generate</button>
+				</div>
+			</form>
+			<div id="panel-qr"></div>
+			<hr/>
+		</div>
+
+		<a name="hash" class="anchor"></a>
+		<div>
+			<h2>Hash</h2>
+			<form id="form-hash">
+				<div class="form-group">
+					<label for="input-hashdata">Data</label>
+					<input type="text" class="form-control" id="input-hashdata" placeholder="Hash data" data-bind="value: hashData"/>
+				</div>
+				<div class="form-group">
+					<label for="input-hashalgorithm">Algorithm</label>
+					<select class="form-control" data-bind="value: hashAlgorithm">
+						<option value="MD5">MD5</option>
+						<option value="SHA1">SHA-1</option>
+						<option value="SHA256">SHA-256</option>
+						<option value="SHA512">SHA-512</option>
+						<option value="SHA3">SHA-3</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" data-bind="click: generateHash">Generate</button>
+				</div>
+				<div class="form-group">
+					<label for="input-hash">Hash</label>
+					<input type="text" class="form-control" id="input-hash" placeholder="Hash" data-bind="value: hash" disabled="disabled"/>
+				</div>
+			</form>
+			<hr/>
+		</div>
+
+		<a name="randomstr" class="anchor"></a>
+		<div>
+			<h2>Random String</h2>
+			<form id="form-randomstr">
+				<div class="form-group">
+					<label for="input-length">Length</label>
+					<input type="number" class="form-control" id="input-length" placeholder="Length" data-bind="value: length"/>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: hasUpperCaseLetters"> Upper case letters
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: hasLowerCaseLetters"> Lower case letters
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: hasNumbers"> Numbers
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: hasSpecialCharacters"> Special characters
+					</label>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" data-bind="click: generateRandomString">Generate</button>
+				</div>
+				<div class="form-group">
+					<label for="input-randomstr">Random string</label>
+					<input type="text" class="form-control" id="input-randomstr" placeholder="Random string" data-bind="value: randomstr" disabled="disabled"/>
+				</div>
+			</form>
+			<hr/>
+		</div>
+
+		<a name="base64" class="anchor"></a>
+		<div>
+			<h2>Base64</h2>
+			<form id="form-base64">
+				<div class="form-group">
+					<label for="input-input">Input</label>
+					<textarea class="form-control" id="input-input" placeholder="Input" data-bind="value: input"></textarea>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" data-bind="click: encode">Encode</button>
+					<button class="btn btn-primary" data-bind="click: decode">Decode</button>
+				</div>
+				<div class="form-group">
+					<label for="input-output">Output</label>
+					<textarea class="form-control" id="input-output" placeholder="Output" data-bind="value: output" disabled="disabled"></textarea>
+				</div>
+			</form>
+			<hr/>
+		</div>
+
+		<a name="handlebars" class="anchor"></a>
+		<div>
+			<h2>Handlebars</h2>
+			<form id="form-handlebars">
+				<div class="form-group">
+					<label for="input-template">Template</label>
+					<textarea class="form-control" id="input-template" placeholder="Template" data-bind="value: template"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="input-context">Context</label>
+					<textarea class="form-control" id="input-context" placeholder="Context" data-bind="value: context"></textarea>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" data-bind="click: generate">Generate</button>
+				</div>
+				<div class="form-group">
+					<label for="input-output">Output</label>
+					<textarea class="form-control" id="input-output" placeholder="Output" data-bind="value: output" disabled="disabled"></textarea>
+				</div>
+			</form>
+			<hr/>
+		</div>
+
+		<a name="regexpcap" class="anchor"></a>
+		<div>
+			<h2>RegExp Capture</h2>
+			<form id="form-regexpcap">
+				<div class="form-group">
+					<label for="input-pattern">Pattern</label>
+					<textarea class="form-control" id="input-pattern" placeholder="Pattern" data-bind="value: pattern"></textarea>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: isGlobalMatch"> Global match
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: isIgnoreCase"> Ignore case
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" data-bind="checked: isMultiline"> Multiline
+					</label>
+				</div>
+				<div class="form-group">
+					<label for="input-str">String</label>
+					<textarea class="form-control" id="input-str" placeholder="String" data-bind="value: str"></textarea>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" data-bind="click: capture">Capture</button>
+				</div>
+				<div class="form-group">
+					<label for="input-output">Output</label>
+					<textarea class="form-control" id="input-output" placeholder="Output" data-bind="value: output" disabled="disabled"></textarea>
+				</div>
+			</form>
+			<hr/>
+		</div>
+
+		<a name="markdown" class="anchor"></a>
+		<div>
+			<h2>Markdown</h2>
+			<form id="form-markdown">
+				<div class="form-group">
+					<label for="input-markdown">Markdown</label>
+					<textarea class="form-control" id="input-markdown" placeholder="Markdown" data-bind="value: markdown"></textarea>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary" data-bind="click: generate">Generate</button>
+				</div>
+				<div class="form-group">
+					<label for="input-output">Html</label>
+					<textarea class="form-control" id="input-html" placeholder="Html" data-bind="value: html" disabled="disabled"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="div-preview">Preview</label>
+					<div data-bind="html: html">
+					</div>
+				</div>
+			</form>
+			<hr/>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/x64-core-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/md5-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha1-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha256-min.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha512-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha3-min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/markdown.js/0.5.0/markdown.min.js"></script>
+
+	<script>
+		(function() {
+			function QRFormViewModel() {
+				var self = this;
+				self.qrData = ko.observable();
+				self.correctLevel = ko.observable('1');
+				self.generateQr = function() {
+					$('#panel-qr').empty().qrcode({text: self.qrData(), correctLevel: parseInt(self.correctLevel())});
+				}
+			}
+
+			var qrFormVM = new QRFormViewModel();
+			ko.applyBindings(qrFormVM, document.getElementById('form-qr'));
+		})();
+
+		(function() {
+			function HashFormViewModel() {
+				var self = this;
+				self.hashData = ko.observable();
+				self.hashAlgorithm = ko.observable('SHA256');
+				self.hash = ko.observable();
+
+				self.generateHash = function() {
+					var data = self.hashData();
+					var algorithm = self.hashAlgorithm();
+					var hash;
+					if ('MD5' === algorithm) {
+						hash = CryptoJS.MD5(data);
+					} else if ('SHA1' === algorithm) {
+						hash = CryptoJS.SHA1(data);
+					} else if ('SHA256' === algorithm) {
+						hash = CryptoJS.SHA256(data);
+					} else if ('SHA512' === algorithm) {
+						hash = CryptoJS.SHA512(data);
+					} else if ('SHA3' === algorithm) {
+						hash = CryptoJS.SHA3(data);
+					}
+					self.hash(hash);
+				}
+			}
+
+			var formVM = new HashFormViewModel();
+			ko.applyBindings(formVM, document.getElementById('form-hash'));
+		})();
+
+		(function() {
+			function RandomStringFormViewModel() {
+				var upperCaseLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXTZ';
+				var lowerCaseLetters = 'abcdefghiklmnopqrstuvwxyz';
+				var numbers = '0123456789';
+				var specialCharacters = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+
+				var self = this;
+				self.length = ko.observable();
+				self.randomstr = ko.observable();
+				self.hasUpperCaseLetters = ko.observable(true);
+				self.hasLowerCaseLetters = ko.observable(true);
+				self.hasNumbers = ko.observable(true);
+				self.hasSpecialCharacters = ko.observable(true);
+
+				self.generateRandomString = function() {
+					var length = self.length();
+					self.randomstr('');
+
+					var chars = '';
+					if (self.hasUpperCaseLetters()) {
+						chars += upperCaseLetters;
+					}
+					if (self.hasLowerCaseLetters()) {
+						chars += lowerCaseLetters;
+					}
+					if (self.hasNumbers()) {
+						chars += numbers;
+					}
+					if (self.hasSpecialCharacters()) {
+						chars += specialCharacters;
+					}
+
+					if (!chars) {
+						return;
+					}
+
+					var length = self.length();
+					self.randomstr('');
+					if (length) {
+						length = parseInt(length, 10);
+						if (isNaN(length)) {
+							console.log('length is invalid');
+							return;
+						} else if (length < 0) {
+							console.log('length is negative');
+							return;
+						}
+						var result = '';
+						for (var i=0; i<length; ++i) {
+							var index = Math.floor(Math.random() * chars.length);
+							result += chars[index];
+						}
+						self.randomstr(result);
+					}
+				}
+			}
+
+			var formVM = new RandomStringFormViewModel();
+			ko.applyBindings(formVM, document.getElementById('form-randomstr'));
+		})();
+
+		(function() {
+			function Base64FormViewModel() {
+				var self = this;
+				self.input = ko.observable();
+				self.output = ko.observable();
+				self.encode = function() {
+					var input = self.input();
+					var output = btoa(input);
+					self.output(output);
+				}
+				self.decode = function() {
+					var input = self.input();
+					var output = atob(input);
+					self.output(output);
+				}
+			}
+
+			var formVM = new Base64FormViewModel();
+			ko.applyBindings(formVM, document.getElementById('form-base64'));
+		})();
+
+		(function() {
+			function HandlebarsFormViewModel() {
+				var self = this;
+				self.template = ko.observable();
+				self.context = ko.observable();
+				self.output = ko.observable();
+				self.generate = function() {
+					var templateHtml = self.template();
+					var template = Handlebars.compile(templateHtml);
+					var contextJson = self.context();
+					var context = JSON.parse(contextJson);
+					var output = template(context);
+					self.output(output);
+				}
+			}
+
+			var formVM = new HandlebarsFormViewModel();
+			ko.applyBindings(formVM, document.getElementById('form-handlebars'));
+		})();
+
+		(function() {
+			function RegExpCaptureFormViewModel() {
+				var self = this;
+				self.pattern = ko.observable();
+				self.isGlobalMatch = ko.observable(false);
+				self.isIgnoreCase = ko.observable(false);
+				self.isMultiline = ko.observable(false);
+				self.str = ko.observable();
+				self.output = ko.observable();
+				self.capture = function() {
+					var pattern = self.pattern();
+					var flags = '';
+					if (self.isGlobalMatch()) {
+						flags += 'g';
+					}
+					if (self.isIgnoreCase()) {
+						flags += 'i';
+					}
+					if (self.isMultiline()) {
+						flags += 'm';
+					}
+					var regExp = new RegExp(pattern, flags);
+					var str = self.str();
+					var tokens = regExp.exec(str);
+					if (tokens) {
+						var output = tokens.join('\n');
+						self.output(output);
+					} else {
+						self.output('');
+					}
+				}
+			}
+
+			var formVM = new RegExpCaptureFormViewModel();
+			ko.applyBindings(formVM, document.getElementById('form-regexpcap'));
+		})();
+
+		(function() {
+			function MarkdownFormViewModel() {
+				var self = this;
+				self.markdown = ko.observable();
+				self.html = ko.observable();
+				self.generate = function() {
+					var content = self.markdown();
+					var html = markdown.toHTML(content);
+					self.html(html);
+				}
+			}
+
+			var formVM = new MarkdownFormViewModel();
+			ko.applyBindings(formVM, document.getElementById('form-markdown'));
+		})();
+	</script>
+</body>
+</html>
