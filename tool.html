@@ -434,13 +434,24 @@
 					}
 					var regExp = new RegExp(pattern, flags);
 					var str = self.str();
-					var tokens = regExp.exec(str);
-					if (tokens) {
-						var output = tokens.join('\n');
-						self.output(output);
+
+					var matches, output = '', outputs = [];
+					if (self.isGlobalMatch()) {
+						while ((matches = regExp.exec(str)) !== null) {
+							if (matches.length > 1) {
+								outputs.push(matches[1]);
+							}
+						}
+						if (outputs.length > 0) {
+							output = outputs.join('\n');
+						}
 					} else {
-						self.output('');
+						matches = regExp.exec(str);
+						if (matches.length > 1) {
+							output = matches[1];
+						}
 					}
+					self.output(output);
 				}
 			}
 
