@@ -1,0 +1,29 @@
+{
+  "name": "tool",
+  "version": "0.0.1",
+  "description": "A single page application provides multiple tools for daily tasks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/franzwong/tool.git"
+  },
+  "author": "Franz Wong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/franzwong/tool/issues"
+  },
+  "homepage": "https://github.com/franzwong/tool",
+  "devDependencies": {
+    "gulp": "~3.8.11",
+    "gulp-concat": "~2.5.1",
+    "gulp-uglify": "~1.1.0",
+    "gulp-rename": "~1.2.0",
+    "gulp-replace": "~0.5.3",
+    "event-stream": "~3.2.2",
+    "gulp-jshint": "~1.9.2",
+    "gulp-header": "~1.2.2"
+  }
+}

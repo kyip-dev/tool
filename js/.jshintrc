@@ -1,0 +1,16 @@
+{
+	"browser": true,
+	"camelcase": true,
+	"jquery": true,
+	"quotmark": "single",
+	"globals": {
+		"define": true,
+		"require": true,
+		"ko": true,
+		"CryptoJS": true,
+		"Handlebars": true,
+		"markdown": true
+	},
+
+	"extends": "../.jshintrc"
+}
