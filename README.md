@@ -14,7 +14,7 @@ A single page application provides multiple tools for daily tasks.
 
 ## Installation
 
-All javascript dependencies are loaded from CDN. Simply open tool.html
+All javascript dependencies are loaded from CDN. Simply open "dist/tool.min.html"
 
 ## Authors
 
