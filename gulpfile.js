@@ -3,6 +3,7 @@ var fs    = require('fs');
 var es    = require('event-stream');
 var pkg   = require('./package.json');
 
+var del     = require('del');
 var jshint  = require('gulp-jshint');
 var concat  = require('gulp-concat');
 var uglify  = require('gulp-uglify');
@@ -18,13 +19,17 @@ var banner = ['<!--',
   ' -->',
   ''].join('\n');
 
-gulp.task('lint', function() {
+gulp.task('clean', function() {
+  return del(['dist/**']);
+});
+
+gulp.task('lint', ['clean'], function() {
     return gulp.src('js/*.js')
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
 
-gulp.task('scripts', function() {
+gulp.task('scripts', ['lint'], function() {
   return gulp.src([
       './js/qr_code.js',
       './js/hash.js',
@@ -42,7 +47,7 @@ gulp.task('scripts', function() {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('html', function() {
+gulp.task('html', ['scripts'], function() {
   var normal = gulp.src('./html/tool.html')
     .pipe(header(banner, { pkg: pkg, name: 'Franz Wong'}))
     .pipe(replace(/<script src="tool.js"><\/script>/, function(s) {
@@ -63,4 +68,4 @@ gulp.task('html', function() {
   return es.merge(normal, min);
 });
 
-gulp.task('default', ['lint', 'scripts', 'html']);
+gulp.task('default', ['html']);
